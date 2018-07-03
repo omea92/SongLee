@@ -10,5 +10,5 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(port, hostname, () => {
-  console.log(`서버 Server running at http://${hostname}:${port}/`);
+  console.log(`서버하이 Server running at http://${hostname}:${port}/`);
 });
