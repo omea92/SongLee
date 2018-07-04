@@ -14,7 +14,11 @@ app.get('/', function(req, res){
 
 app.get('/mypage', function(req, res){
   res.render('mypage');
-})
+});
+
+app.get('/mypage', function(req, res){
+  res.send('afdsfdsasdfdfdfsdfsdf');
+});
 
 app.listen(3000, function(){
   console.log('Connected 3000 port!')
