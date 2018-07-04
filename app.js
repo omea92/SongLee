@@ -16,6 +16,10 @@ app.get('/mypage', function(req, res){
   res.render('mypage');
 })
 
+app.get('/admin', function(req, res){
+  res.render('admin');
+})
+
 app.listen(3000, function(){
   console.log('Connected 3000 port!')
 });
