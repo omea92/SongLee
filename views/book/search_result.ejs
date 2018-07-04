@@ -8,11 +8,15 @@
       $(document).ready(function(){
           $("#header").load("/include/header.ejs");
           $("#sidebar-wrapper").load("/include/sideMypage.ejs");
+          $("#search").load("/include/search.ejs");
       });
     </script>
   </head>
     <body>
       <div id="header"></div>
+      <div class="container">
+        <div id="search"></div>
+      </div>
       <div id="page-wrapper">
         <div id="sidebar-wrapper"></div>
 
@@ -20,6 +24,7 @@
           <div class="container-fluid">
 
             <h1>Search Result</h1>
+            <hr/>
             <table class = "table">
               <tr>
                 <th>제목</th>
@@ -32,7 +37,7 @@
               <% if(search_results.length > 0){
                 search_results.forEach(function(search_result){ %>
               <tr>
-                <td><a href="/book_detail?book_id=<%= search_result.book_id %>&sequence=<%= search_result.sequence %>"><%= search_result.title %></a></td>
+                <td><a href="/book/detail?book_id=<%= search_result.book_id %>&sequence=<%= search_result.sequence %>"><%= search_result.title %></a></td>
                 <td><%= search_result.publisher %></td>
                 <td><%= search_result.author %></td>
                 <td><%= search_result.subject %></td>
