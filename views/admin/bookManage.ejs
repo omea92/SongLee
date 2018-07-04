@@ -10,6 +10,9 @@
           $("#sidebar-wrapper").load("/include/sideadminpage.ejs");
       });
 
+      function moveCreateBook(){
+        location.href='/book/create'
+      }
     </script>
   </head>
     <body>
@@ -51,10 +54,8 @@
             </tr>
              <% }); %>
             </tbody>
-            <tfoot>
-              <button class="btn btn-primary">등록</button>
-            </tfoot>
           </table>
+          <button class="btn btn-primary" onclick="javascript:moveCreateBook()">도서 등록</button>
         </div>
       </div>
     </div>

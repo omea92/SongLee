@@ -10,9 +10,8 @@
           $("#sidebar-wrapper").load("/include/sideadminpage.ejs");
       });
 
-      function userdetail(){
-        alert('hi');
-        window.onload('/')
+      function userdetail(id){
+        location.href='/admin/user_detail?user_id='+id;
       }
     </script>
   </head>
@@ -37,7 +36,7 @@
             <tbody>
             <% users.forEach(function(user){ %>
             <tr>
-              <td><a href ="" onclick="javascript:userdetail()"><%= user.user_id %></a></td>
+              <td><a href="javascript:userdetail('<%= user.user_id %>')"><%= user.user_id %></a></td>
               <td><%= user.name %></td>
               <td><%= user.birthdate %></td>
               <td><%= user.gender %></td>
