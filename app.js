@@ -28,7 +28,7 @@ app.use(bodyParser.urlencoded({
 
 app.use(bodyParser.json());
 
-//회원가입
+//회원가입 (정원준)
 var user = require('./routes/user')(connection);
 app.use('/user', user);
 
