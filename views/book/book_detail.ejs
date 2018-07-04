@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Search Result</title>
+    <script src="http://code.jquery.com/jquery-1.12.4.js"></script>
+    <script>
+      $(document).ready(function(){
+          $("#header").load("/include/header.ejs");
+          $("#sidebar-wrapper").load("/include/sideMypage.ejs");
+      });
+    </script>
+  </head>
+    <body>
+      <div id="header"></div>
+      <div id="page-wrapper">
+        <div id="sidebar-wrapper"></div>
+
+        <div id="page-content-wrapper">
+          <div class="container-fluid">
+            <ul>
+              <li style = "line-height: 150%;">
+                <b id = "book_title"><%= book_detail.title %></b>
+              </li>
+              <li><%= book_detail.publisher %></li>
+              <li><%= book_detail.author %></li>
+              <li><%= book_detail.subject %></li>
+              <li><%= moment(book_detail.publish_date).format('YYYY-MM-DD') %></li>
+              <li>
+                <% var strStatus = book_detail.status;
+                if(strStatus == 1){ %>
+                  대여 가능
+                <% }else { %>
+                  대여 불가
+                <% } %>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+  </body>
+</html>
