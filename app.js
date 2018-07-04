@@ -38,10 +38,15 @@ app.use('/login', login);
 
 //app.engine('ejs', require('ejs').renderFile);
 app.set('views', __dirname + '/views');
+app.use(bodyParser.json());
+
+var app = express();
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 
-//수정
 app.get('/', function(req, res) {
   res.render('index');
 });
@@ -49,7 +54,12 @@ app.get('/login', function(req, res) {
   res.render('login');
 });
 
+var mypage = require('./routes/mypage')(connection);
+var book = require('./routes/book')(connection);
+var admin = require('./routes/admin')(connection);
+var user = require('./routes/user')(connection);
 
+<<<<<<< HEAD
 
 // //MYPAGE////////////////////////////////////////////////////////
 // app.get('/mypage/mypage', function(req, res) {
@@ -104,6 +114,12 @@ app.get('/book_detail', function(req, res){
 });
 
 //ADMIN//////////////////////////////////////////////////////////////
+=======
+app.use('/admin', admin);
+app.use('/user', user);
+app.use('/mypage', mypage);
+app.use('/book', book);
+>>>>>>> 32ca2f5422c6aed65fe149cf6a517175988d45ed
 
 app.listen(3000, function() {
   console.log('Connected 3000 port!');

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="http://code.jquery.com/jquery-1.12.4.js"></script>
+    <script>
+      $(document).ready(function(){
+          $("#header").load("/include/header.ejs");
+          $("#sidebar-wrapper").load("/include/sideadminpage.ejs");
+      });
+
+      function moveCreateBook(){
+        location.href='/book/create'
+      }
+    </script>
+  </head>
+    <body>
+    <div id="header"></div>
+    <div id="page-wrapper">
+      <div id="sidebar-wrapper"></div>
+
+      <div id="page-content-wrapper">
+        <div class="container-fluid">
+          <h1>도서 관리</h1>
+          <p>container-fluid 안에서 개발 하시면 됩니다. </p>
+          <table class="table table-bordered table-hover">
+            <thead>
+              <th>등록번호</th>
+              <th>제목</th>
+              <th>출판사</th>
+              <th>저자</th>
+              <th>출판년도</th>
+              <th>상태</th>
+              <th>보유수량</th>
+            </thead>
+            <tbody>
+            <% books.forEach(function(book){ %>
+            <tr>
+              <td><%= book.book_id %></td>
+              <td><%= book.title %></td>
+              <td><%= book.publisher %></td>
+              <td><%= book.author %></td>
+              <td><%= book.publish_date %></td>
+              <% var status = book.status;
+              if(status == 0){ %>
+                <td>대출중</td>
+              <% }else if(status == 1){ %>
+                  <td>대여 가능</td>
+              <% }else if(status == 2){ %>
+                 <td>연체 중</td>
+              <% } %>
+              <td><%= book.sequence %></td>
+            </tr>
+             <% }); %>
+            </tbody>
+          </table>
+          <button class="btn btn-primary" onclick="javascript:moveCreateBook()">도서 등록</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
