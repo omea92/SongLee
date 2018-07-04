@@ -6,8 +6,6 @@ app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 app.use(express.static('public'));
 
-
-
 app.get('/', function(req, res){
   res.render('index');
 });
@@ -19,6 +17,10 @@ app.get('/mypage', function(req, res){
 app.get('/mypage', function(req, res){
   res.send('afdsfdsasdfdfdfsdfsdf');
 });
+
+//MYPAGE////////////////////////////////////////////////////////
+//ADMIN//////////////////////////////////////////////////////////////
+
 
 app.get('/admin', function(req, res){
   res.render('admin');
