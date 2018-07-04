@@ -14,6 +14,14 @@ app.get('/', function(req, res){
 
 app.get('/mypage', function(req, res){
   res.render('mypage');
+});
+
+app.get('/mypage', function(req, res){
+  res.send('afdsfdsasdfdfdfsdfsdf');
+});
+
+app.get('/admin', function(req, res){
+  res.render('admin');
 })
 app.get('/login', function(req, res){
   res.render('login');
