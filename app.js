@@ -48,7 +48,16 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.get('/', function(req, res) {
-  res.render('index');
+  // 분야 별 1위 도서 select하기!
+  //  + 'select * from book where subject = "소설" order by borrow_count desc limit 1;';
+  var sql = 'SELECT * FROM book ORDER BY borrow_count DESC LIMIT 2;';
+  connection.query(sql, function(err, results, fields){
+    res.render('index', {
+        layout: false,
+        ranking: results[0],
+        ranking2: results[1]
+    });
+  });
 });
 app.get('/login', function(req, res) {
   res.render('login');
