@@ -68,7 +68,6 @@ var book = require('./routes/book')(connection);
 var admin = require('./routes/admin')(connection);
 var user = require('./routes/user')(connection);
 
-<<<<<<< HEAD
 
 // //MYPAGE////////////////////////////////////////////////////////
 // app.get('/mypage/mypage', function(req, res) {
@@ -123,12 +122,10 @@ app.get('/book_detail', function(req, res){
 });
 
 //ADMIN//////////////////////////////////////////////////////////////
-=======
 app.use('/admin', admin);
 app.use('/user', user);
 app.use('/mypage', mypage);
 app.use('/book', book);
->>>>>>> 32ca2f5422c6aed65fe149cf6a517175988d45ed
 
 app.listen(3000, function() {
   console.log('Connected 3000 port!');
