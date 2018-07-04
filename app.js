@@ -22,8 +22,8 @@ app.get('/mypage', function(req, res){
 
 app.get('/admin', function(req, res){
   res.render('admin');
-})
+});
 
 app.listen(3000, function(){
-  console.log('Connected 3000 port!')
+  console.log('Connected 3000 port!');
 });
