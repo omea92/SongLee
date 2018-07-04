@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>search</title>
+</head>
+
+<body>
+  <div class="row">
+    <div class="col-xl-9 mx-auto">
+      <h1 class="mb-5">4일 도서관, 내 인생의 빛이 됩니다.</h1>
+    </div>
+    <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+      <form action="/search" method="post">
+        <div class="form-row">
+          <div class="col-12 col-md-3">
+            <select name="search" class="form-control form-control-lg">
+        			<option value = "title">제목</option>
+        			<option value = "author">글쓴이</option>
+        			<option value = "publish_date">출판일</option>
+      		  </select>
+          </div>
+          <div class="col-12 col-md-6">
+            <input type="text" class="form-control form-control-lg" name="searchContent" placeholder="검색할 책을 입력하세요...">
+          </div>
+          <div class="col-12 col-md-3">
+            <button type="submit" class="btn btn-block btn-lg btn-primary">검색</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -28,20 +28,21 @@
   <script src="http://code.jquery.com/jquery-1.12.4.js"></script>
   <script>
     $(document).ready(function(){
-        $("#header").load("/include/header.html");
-        $("#search").load("/include/search.html");
+        $("#header").load("/include/header.ejs");
+        $("#search").load("/include/search.ejs");
     });
   </script>
   <body>
     <div id="header"></div>
     <!-- Masthead -->
-    <div id = "search"></div>
     <header class="masthead text-white text-center">
       <div class="overlay"></div>
       <div class="container">
-        <div class="row">
+        <div id = "search"></div>
+
+        <!-- <div class="row">
           <div class="col-xl-9 mx-auto">
-            <h1 class="mb-5">Build a landing page for your business or project and generate more leads!</h1>
+            <h1 class="mb-5">4일 도서관, 내 인생의 빛이 됩니다.</h1>
           </div>
           <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
             <form>
@@ -54,7 +55,7 @@
                 </div>
               </div>
             </form>
-          </div>
+          </div> -->
         </div>
       </div>
     </header>
