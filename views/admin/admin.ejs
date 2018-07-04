@@ -2,12 +2,12 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>My Page</title>
+    <title></title>
     <script src="http://code.jquery.com/jquery-1.12.4.js"></script>
     <script>
       $(document).ready(function(){
           $("#header").load("/include/header.ejs");
-          $("#sidebar-wrapper").load("/include/sideMypage.ejs");
+          $("#sidebar-wrapper").load("/include/sideadminpage.ejs");
       });
 
     </script>
@@ -21,13 +21,7 @@
         <div class="container-fluid">
 
           <h1>My page</h1>
-          <table class = "table">
-            <% results.forEach(function(results){ %>
-            <tr>
-              <td><%= results.user_id %></td>
-            </tr>
-            <% }); %>
-          </table>
+          <p>container-fluid 안에서 개발 하시면 됩니다. </p>
         </div>
       </div>
     </div>
