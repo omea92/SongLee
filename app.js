@@ -7,7 +7,7 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
 
-
+//수정
 app.get('/', function(req, res){
   res.render('index');
 });
