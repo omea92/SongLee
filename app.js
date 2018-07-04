@@ -2,8 +2,8 @@ var express = require('express'),
     http = require('http');
 var app = express();
 
-app.engine('html', require('ejs').renderFile);
-app.set('view engine', 'html');
+//app.engine('ejs', require('ejs').renderFile);
+app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
 
@@ -13,11 +13,14 @@ app.get('/', function(req, res){
 });
 
 app.get('/mypage', function(req, res){
-  res.render('mypage');
+  res.render('mypage/mypage');
 });
 
-app.get('/mypage', function(req, res){
-  res.send('afdsfdsasdfdfdfsdfsdf');
+app.get('/test', function(req, res){
+  res.render('test', {
+            title: "MY HOMEPAGE",
+            length: 5
+        });
 });
 
 app.get('/admin', function(req, res){
