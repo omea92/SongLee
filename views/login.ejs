@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="http://code.jquery.com/jquery-1.12.4.js"></script>
+    <script>
+      $(document).ready(function(){
+          $("#header").load("/include/header.html")
+      });
+    </script>
+  </head>
+    <body>
+      <div id="header"></div>
+      <div align="center">
+        <div class="container">
+          <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title">환영합니다!</div>
+                </div>
+                <div class="panel-body">
+                    <form id="login-form" method="post" action="/login">
+                        <div>
+                            <input type="text" class="form-control" name="user_id" placeholder="아이디" autofocus>
+                        </div>
+                        <div>
+                            <input type="password" class="form-control" name="password" placeholder="비밀번호">
+                        </div>
+                        <div>
+                            <input type="submit" class="btn btn-info btn-block" value="로그인">
+                            <a class="btn btn-success btn-block" href="/join">회원가입</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </body>
+</html>

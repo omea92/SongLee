@@ -16,10 +16,6 @@ app.get('/mypage', function(req, res){
   res.render('mypage');
 });
 
-app.get('/mypage', function(req, res){
-  res.send('afdsfdsasdfdfdfsdfsdf');
-});
-
 app.get('/admin', function(req, res){
   res.render('admin');
 })
