@@ -16,6 +16,10 @@ app.get('/mypage', function(req, res){
   res.render('mypage/mypage');
 });
 
+app.get('/admin', function(req, res){
+  res.render('admin/admin');
+});
+
 app.get('/test', function(req, res){
   res.render('test', {
             title: "MY HOMEPAGE",
@@ -23,7 +27,7 @@ app.get('/test', function(req, res){
         });
 });
 
-//MYPAGE////////////////////////////////////////////////////////
+//MYPAGE/////////////////////////////////////////////////////////////
 //ADMIN//////////////////////////////////////////////////////////////
 
 
