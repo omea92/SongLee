@@ -7,7 +7,7 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
 
-
+//수정
 app.get('/', function(req, res){
   res.render('index');
 });
@@ -25,7 +25,13 @@ app.get('/test', function(req, res){
 
 app.get('/admin', function(req, res){
   res.render('admin');
-});
+})
+app.get('/login', function(req, res){
+  res.render('login');
+})
+app.get('/join', function(req, res){
+  res.render('join');
+})
 
 app.listen(3000, function(){
   console.log('Connected 3000 port!');
