@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="http://code.jquery.com/jquery-1.12.4.js"></script>
+    <script>
+      $(document).ready(function(){
+          $("#header").load("/include/header.ejs");
+          $("#sidebar-wrapper").load("/include/sideMypage.ejs");
+      });
+
+    </script>
+  </head>
+    <body>
+    <div id="header"></div>
+    <div id="page-wrapper">
+      <div id="sidebar-wrapper"></div>
+
+      <div id="page-content-wrapper">
+        <div class="container-fluid">
+
+          <h1>My page</h1>
+          <p>container-fluid 안에서 개발 하시면 됩니다. </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

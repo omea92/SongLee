@@ -6,19 +6,49 @@
     <script src="http://code.jquery.com/jquery-1.12.4.js"></script>
     <script>
       $(document).ready(function(){
-          $("#header").load("/include/header.html")
+          $("#header").load("/include/header.ejs")
       });
     </script>
   </head>
     <body>
       <div id="header"></div>
       <div class="container">
-        <h1>Join my website! </h1>
-     <form action="/join" method="post">
+        <h2 align="center">회원가입 환영합니다!</h2>
+       <form action="/join" method="post">
          <div class="form-group">
-            <label></label>
+            <label>아이디</label>
+            <input type="text" class="form-control"
+                name="user_id"/>
          </div>
-     </form>
+         <div class="form-group">
+            <label>비밀번호</label>
+            <input type="password" class="form-control"
+                name="password"/>
+         </div>
+         <div class="form-group">
+            <label>이름</label>
+            <input type="text" class="form-control"
+                name="name"/>
+         </div>
+         <div class="form-group">
+            <label>생년월일</label>
+            <input type="text" class="form-control"
+                name="birthdate"/>
+         </div>
+         <div class="form-group">
+            <label>성별</label>
+            <input type="text" class="form-control"
+                name="gender"/>
+         </div>
+         <div class="form-group">
+            <label>이메일</label>
+            <input type="email" class="form-control"
+                name="email"/>
+         </div>
+         <div class="form-group" align="center">
+            <input type="button" class="btn btn-info btn-block" value="가입">
+         </div>
+       </form>
       </div>
   </body>
 </html>
