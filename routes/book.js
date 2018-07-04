@@ -26,7 +26,7 @@ module.exports = function(connection) {
     });
   });
 
-  route.get('/manage', function(req, res) {
+  route.get('/list', function(req, res) {
     var sql = ' select book_id, title, publisher, author, subject, date_format(publish_date, "%Y-%m-%d") publish_date, status, sequence ' +
       ' from book order by title asc';
     sql = mysql.format(sql);
@@ -55,6 +55,10 @@ module.exports = function(connection) {
         moment
       });
     });
+  });
+
+  route.get('/create', function(req, res){
+    res.render('book/createBook');
   });
 
 
