@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>My Page</title>
     <script src="http://code.jquery.com/jquery-1.12.4.js"></script>
     <script>
       $(document).ready(function(){
@@ -12,6 +12,12 @@
   </head>
     <body>
       <div id="header"></div>
-      Mypage입니다.
+      <table class = "table">
+        <% results.forEach(function(results){ %>
+        <tr>
+          <td><%= results.user_id %></td>
+        </tr>
+        <% }); %>
+      </table>
   </body>
 </html>
