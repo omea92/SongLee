@@ -11,6 +11,9 @@
       $("#sidebar-wrapper").load("/include/sideMypage.ejs");
       $("#search").load("/include/search.ejs");
     });
+    var reservation = function(){
+      location.href = "/mypage/reservation?book_id=book_detail.book_id&sequence=book_detail.sequence";
+    }
   </script>
   <style>
     .info {
@@ -87,11 +90,19 @@
             <% var strStatus = book_detail.status;
                 if(strStatus == 1){ %>
               대여상태 : 대여 가능
+            </li>
+          </ul>
               <% }else { %>
                 대여상태 : 대여 불가
-                <% } %>
-          </li>
-        </ul>
+            </li>
+          </ul>
+          <br/><br/>
+          <center>
+            <button class = "btn btn-success" type = "button" style = "align: center;" onclick = "location.href = '/mypage/reservation?book_id=<%= book_detail.book_id %>&sequence=<%= book_detail.sequence %>'">
+              예약
+            </button>
+          </center>
+          <% } %>
       </div>
       </div>
     </div>

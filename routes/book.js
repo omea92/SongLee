@@ -30,9 +30,7 @@ module.exports = function(connection) {
     var sql = ' select book_id, title, publisher, author, subject, date_format(publish_date, "%Y-%m-%d") publish_date, status, sequence ' +
       ' from book order by title asc';
     sql = mysql.format(sql);
-    console.log(sql);
     connection.query(sql, function(err, results, fields) {
-      console.log(results);
       res.render('admin/bookManage', {
         layout: false,
         books: results
@@ -46,9 +44,7 @@ module.exports = function(connection) {
     var sql = 'SELECT * FROM BOOK WHERE book_id = ? AND sequence = ?';
     var params = [book_id, sequence];
     sql = mysql.format(sql, params);
-    console.log(sql);
     connection.query(sql, function(err, results, fields) {
-      console.log(results);
       res.render('book/book_detail', {
         layout: false,
         book_detail: results[0],
@@ -57,11 +53,11 @@ module.exports = function(connection) {
     });
   });
 
-  route.get('/create_book_form', function(req, res){
+  route.get('/create_book_form', function(req, res) {
     res.render('book/createBookForm');
   });
 
-  route.post('/create', function(req, res){
+  route.post('/create', function(req, res) {
     var bood_id = req.body.bood_id;
     var title = req.body.title;
     var publisher = req.body.publisher;
@@ -69,13 +65,12 @@ module.exports = function(connection) {
     var subject = req.body.subjet;
     var publish_date = req.body.publish_date;
     var param = [bood_id, title, publisher, author, subject, publish_date];
-    var sql = ' insert into book(book_id, title, publisher, author, subject, publish_date, sequence) '
-            + ' values (?,?,?,?,?,?,1) ';
+    var sql = ' insert into book(book_id, title, publisher, author, subject, publish_date, sequence) ' +
+      ' values (?,?,?,?,?,?,1) ';
 
-    console.log(sql);
     sql = mysql.format(sql, param);
-    connection.query(sql, param, function(err){
-      if(err)
+    connection.query(sql, param, function(err) {
+      if (err)
         throw err;
       else
         res.redirect('/book/list');
