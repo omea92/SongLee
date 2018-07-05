@@ -4,7 +4,7 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     session = require('express-session'),
     bcrypt = require('bcrypt-nodejs'),
-    mysqlSession = require('express-mysql-session')(session);
+    MySQLStore = require('express-mysql-session')(session);
 
 // mysql 연결
 var mysql = require('mysql');
@@ -19,7 +19,24 @@ connection.connect(function(err) {
 });
 
 
-//회원가입//////////////////////
+//세션 등록//////////////////////////////
+var options = {
+  host : 'localhost',
+  port : 3306,
+  user : 'root',
+  password : 'bitr33',
+  database : '4days'
+};
+var sessionStore = new MySQLStore(options);
+app.use(session({
+  secret: '12sdfwerwersdfserwerwef',
+  resave: false,
+  saveUninitialized: true,
+  store : sessionStore
+}));
+
+
+//마이페이지//////////////////////
 var mypage = require('./routes/mypage')(connection);
 app.use('/mypage', mypage);
 app.use(bodyParser.urlencoded({
@@ -33,6 +50,8 @@ var user = require('./routes/user')(connection);
 app.use('/user', user);
 
 //로그인
+var login = require('./routes/login')(session, connection);
+app.use('/login', login);
 
 
 //app.engine('ejs', require('ejs').renderFile);
