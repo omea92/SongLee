@@ -19,7 +19,6 @@ connection.connect(function(err) {
 });
 
 //회원가입//////////////////////
-
 var mypage = require('./routes/mypage')(connection);
 app.use('/mypage', mypage);
 app.use(bodyParser.urlencoded({
@@ -33,8 +32,7 @@ var user = require('./routes/user')(connection);
 app.use('/user', user);
 
 //로그인
-var login = require('./routes/login')(connection);
-app.use('/login', login);
+
 
 //app.engine('ejs', require('ejs').renderFile);
 app.set('views', __dirname + '/views');
@@ -130,6 +128,3 @@ app.use('/book', book);
 app.listen(3000, function() {
   console.log('Connected 3000 port!');
 });
-
-
-//회원가입////////////////////////////////////////////////////////
