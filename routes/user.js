@@ -33,10 +33,10 @@ module.exports = function(connection) {
   //     });
   //   });
   // });
-
-  route.get('/userdetail', function(req, res){
-    var sql = ' ';
-  });
+  //
+  // route.get('/userdetail', function(req, res){
+  //   var sql = ' ';
+  // });
 
   return route;
 // });
