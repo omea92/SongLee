@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <script src="http://code.jquery.com/jquery-1.12.4.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.0.0/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.2/moment-with-locales.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.0.0/js/bootstrap-datetimepicker.min.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      $("#header").load("/include/header.ejs");
+      $("#sidebar-wrapper").load("/include/sideadminpage.ejs");
+      //$('#datetimepicker10').data("DateTimePicker").FUNCTION();
+
+      $('#optionRadios').change(function(){
+        alert('hi');
+        alert(('#optionRadios').is(':checked'));
+        if(('#optionRadios').value()=='new'){
+          alert('new');
+        }
+      });
+    });
+
+    // 선언한 TextBox에 DateTimePicker 위젯을 적용한다.
+    $('#fromDate').datetimepicker({ language : 'ko',    // 화면에 출력될 언어를 한국어로 설정한다.
+    pickTime : false,    // 사용자로부터 시간 선택을 허용하려면 true를 설정하거나 pickTime 옵션을 생략한다.
+    defalutDate : new Date() // 기본값으로 오늘 날짜를 입력한다. 기본값을 해제하려면 defaultDate 옵션을 생략한다.
+    });
+    $('#toDate').datetimepicker({ language : 'ko', pickTime : false, defalutDate : new Date() });
+
+  </script>
+</head>
+
+<body>
+  <div id="header"></div>
+  <div id="page-wrapper">
+    <div id="sidebar-wrapper"></div>
+
+    <div id="page-content-wrapper">
+      <div class="container-fluid">
+
+        <h1>새 책 등록</h1>
+        <form action="/book/create" method="POST">
+          <label class="radio-inline">
+            <input type="radio" name="optionsRadios" id="optionRadios" value="new" checked onchage="createOption();"> 새 책
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="optionsRadios" id="optionRadios" value="old" > 이미 있는 책
+          </label>
+          <table class="table">
+            <tr>
+              <td>등록 번호</td>
+              <td><input type="text" class="form-control" name="bood_id"></td>
+            </tr>
+            <tr>
+              <td>책 이름</td>
+              <td><input type="text" class="form-control" name="title"></td>
+            </tr>
+            <tr>
+              <td>출판사</td>
+              <td><input type="text" class="form-control" name="publisher"></td>
+            </tr>
+            <tr>
+              <td>저자</td>
+              <td><input type="text" class="form-control" name="author"></td>
+            </tr>
+            <tr>
+              <td>주제</td>
+              <td><select style="height:40px;" class="form-control" name="subject">
+                  <option>고전소설</option>
+                  <option>소설</option>
+                  <option>일본만화</option>
+                  <option>위인전</option>
+              </td>
+            </tr>
+            <tr>
+              <td>출판일자</td>
+              <td>
+                <input id="someDate" type="date" class="form-control" name = "publish_date">
+              </td>
+            </tr>
+          </table>
+          <button type="submit" class="btn btn-primary key">등록</button>
+          <button type="button" class="btn btn-primary key" onclick="history.back();">뒤로가기</button>
+        </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

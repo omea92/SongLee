@@ -1,7 +1,7 @@
 module.exports = {
   host : 'localhost',
   user : 'root',
-  password : 'bitr33',
+  password : '1234',
   port : 3306,
   database : '4days',
   multipleStatements: true
