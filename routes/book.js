@@ -57,8 +57,29 @@ module.exports = function(connection) {
     });
   });
 
-  route.get('/create', function(req, res){
-    res.render('book/createBook');
+  route.get('/create_book_form', function(req, res){
+    res.render('book/createBookForm');
+  });
+
+  route.post('/create', function(req, res){
+    var bood_id = req.body.bood_id;
+    var title = req.body.title;
+    var publisher = req.body.publisher;
+    var author = req.body.author;
+    var subject = req.body.subjet;
+    var publish_date = req.body.publish_date;
+    var param = [bood_id, title, publisher, author, subject, publish_date];
+    var sql = ' insert into book(book_id, title, publisher, author, subject, publish_date, sequence) '
+            + ' values (?,?,?,?,?,?,1) ';
+
+    console.log(sql);
+    sql = mysql.format(sql, param);
+    connection.query(sql, param, function(err){
+      if(err)
+        throw err;
+      else
+        res.redirect('/book/list');
+    });
   });
 
   return route;

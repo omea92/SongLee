@@ -11,7 +11,7 @@
       });
 
       function moveCreateBook(){
-        location.href='/book/create'
+        location.href='/book/create_book_form'
       }
     </script>
   </head>
@@ -32,12 +32,11 @@
               <th>저자</th>
               <th>출판년도</th>
               <th>상태</th>
-              <th>보유수량</th>
             </thead>
             <tbody>
             <% books.forEach(function(book){ %>
             <tr>
-              <td><%= book.book_id %></td>
+              <td><%= book.book_id %>-<%= book.sequence %></td>
               <td><%= book.title %></td>
               <td><%= book.publisher %></td>
               <td><%= book.author %></td>
@@ -50,7 +49,6 @@
               <% }else if(status == 2){ %>
                  <td>연체 중</td>
               <% } %>
-              <td><%= book.sequence %></td>
             </tr>
              <% }); %>
             </tbody>
