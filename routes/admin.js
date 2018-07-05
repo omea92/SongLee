@@ -49,8 +49,8 @@ module.exports = function(connection){
       if(err)
         throw err;
       else
-        console.log('delete user 성공')
-        res.redirect('/admin/user_list')
+        console.log('delete user 성공');
+        res.redirect('/admin/user_list');
     });
   });
   return route;

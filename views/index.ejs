@@ -58,10 +58,13 @@
             <div class="features-icons-icon d-flex">
               <i class="icon-screen-desktop m-auto text-primary"></i>
             </div>
-            <h3>대여 횟수 1위도서</h3>
+            <h3>대출<br/>1등 도서</h3>
             <p class="lead mb-0">
-              <img src = "/img/<%=ranking.book_id%>.jpg"/ style = "height:100px;">
-              <b><%= ranking.title %></b>
+              <% ranking[0].forEach(function(ranking){ %>
+                <img src = "/img/<%= ranking.book_id %>.jpg"/ style = "height:100px;">
+                <br/>
+                <p style = "font-size:15px; width: 100%; font-weight: bold;"><%= ranking.title %></p>
+              <% }); %>
             </p>
           </div>
         </div>
@@ -70,10 +73,13 @@
             <div class="features-icons-icon d-flex">
               <i class="icon-layers m-auto text-primary"></i>
             </div>
-            <h3>대출 1등 도서</h3>
+            <h3>교육 분야<br/>1등 도서</h3>
             <p class="lead mb-0">
-              <img src = "/img/<%=ranking.book_id%>.jpg"/ style = "height:100px;">
-              <b><%= ranking.title %></b>
+              <% ranking[1].forEach(function(ranking){ %>
+                <img src = "/img/<%= ranking.book_id %>.jpg"/ style = "height:80px;">
+                <br/>
+                <p style = "font-size:15px; width: 100%; font-weight: bold;"><%= ranking.title %></p>
+              <% }); %>
             </p>
           </div>
         </div>
@@ -82,10 +88,13 @@
             <div class="features-icons-icon d-flex">
               <i class="icon-check m-auto text-primary"></i>
             </div>
-            <h3>대출 2등 도서</h3>
+            <h3>만화 분야<br/>1등 도서</h3>
             <p class="lead mb-0">
-              <img src = "/img/<%=ranking2.book_id%>.jpg"/ style = "height:100px;">
-              <b><%= ranking2.title %></b>
+              <% ranking[2].forEach(function(ranking){ %>
+                <img src = "/img/<%= ranking.book_id %>.jpg"/ style = "height:80px;">
+                <br/>
+                <p style = "font-size:15px; width: 100%; font-weight: bold;"><%= ranking.title %></p>
+              <% }); %>
             </p>
           </div>
         </div>
