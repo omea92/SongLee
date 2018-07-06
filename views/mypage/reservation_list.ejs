@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Reservation Complete!</title>
+  <script src="http://code.jquery.com/jquery-1.12.4.js"></script>
+  <script>
+    $(document).ready(function() {
+      $("#header").load("/include/header.ejs");
+      $("#sidebar-wrapper").load("/include/sideMypage.ejs");
+      $("#search").load("/include/search.ejs");
+
+    });
+
+    function delete_reservation(book_id, sequence, user_id) {
+      alert('예약을 취소하시겠습니까?');
+      location.href = '/mypage/delete_reservation?book_id=' + book_id + '&sequence=' + sequence + '&user_id=' + user_id;
+    }
+  </script>
+</head>
+
+<body>
+  <div id="header"></div>
+  <div class="container">
+    <div id="search"></div>
+  </div>
+  <div id="page-wrapper">
+    <div id="sidebar-wrapper"></div>
+
+    <div id="page-content-wrapper">
+      <div class="container-fluid">
+
+        <h1>MY 예약 현황</h1>
+        <hr/>
+        <table class="table">
+          <tr>
+            <th>제목</th>
+            <th>책 번호</th>
+            <th>출판사</th>
+            <th>글쓴이</th>
+            <th>분류</th>
+            <th>출판일</th>
+            <th></th>
+          </tr>
+          <%
+            if(reservation_results.length > 0){
+              for(var i = 0; i < reservation_results.length; i++){
+            %>
+            <tr>
+              <td>
+                <%= reservation_results[i].title %>
+              </td>
+              <td>
+                <%= reservation_results[i].book_id %>-<%= reservation_results[i].sequence %>
+              </td>
+              <td>
+                <%= reservation_results[i].publisher %>
+              </td>
+              <td>
+                <%= reservation_results[i].author %>
+              </td>
+              <td>
+                <%= reservation_results[i].subject %>
+              </td>
+              <td>
+                <%= moment(reservation_results[i].publish_date).format('YYYY-MM-DD') %>
+              </td>
+              <td>
+                <button class="btn btn-danger" type="button" onclick="javascript:delete_reservation('<%=reservation_results[i].book_id%>', '<%=reservation_results[i].sequence%>', '<%=reservation_results[i].user_id%>');">
+                  예약 취소
+                </button>
+              </td>
+            </tr>
+            <%
+            }
+          } else { %>
+              <tr align="center">
+                <td colspan="7">도서 예약 내역이 존재하지 않습니다.</td>
+              </tr>
+              <% } %>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

@@ -14,24 +14,24 @@
   </script>
   <style>
     .info {
-       background: #fffef9;
-       overflow: hidden;
-       padding-top: 20px;
-       padding-left: 200px;
-       border: 2px solid #fbfcf1;
-     }
+      background: #fffef9;
+      overflow: hidden;
+      padding-top: 20px;
+      padding-left: 200px;
+      border: 2px solid #fbfcf1;
+    }
 
-     .imgAlign {
-       float: left;
-       padding-left: 30%;
-       padding-right: 5%;
-     }
+    .imgAlign {
+      float: left;
+      padding-left: 30%;
+      padding-right: 5%;
+    }
 
     .book_info li {
       list-style: none;
       padding-left: 0px;
       font-size: 15px;
-      padding-bottom: 10px;
+      padding-bottom: 5px;
       margin-left: 150px;
       margin-top: 5px;
     }
@@ -43,7 +43,6 @@
     img {
       height: 200px;
     }
-
   </style>
 </head>
 
@@ -59,40 +58,56 @@
       <h1>Search Result</h1>
       <hr/>
       <div class="container-fluid info">
-        <div class = "imgAlign">
+        <div class="imgAlign">
           <img src="/img/<%=book_detail.book_id%>.jpg" />
         </div>
-        <div class = "ulAlign">
-        <ul class="book_info">
-          <li style="line-height: 150%;">
-            <b id="book_title"><%= book_detail.title %></b>
-          </li>
-          <li>
-            출판사 :
-            <%= book_detail.publisher %>
-          </li>
-          <li>
-            글쓴이 :
-            <%= book_detail.author %>
-          </li>
-          <li>
-            분류 :
-            <%= book_detail.subject %>
-          </li>
-          <li>
-            출판일 :
-            <%= moment(book_detail.publish_date).format('YYYY-MM-DD') %>
-          </li>
-          <li>
-            <% var strStatus = book_detail.status;
+        <div class="ulAlign">
+          <ul class="book_info">
+            <li style="line-height: 150%;">
+              <b id="book_title"><%= book_detail.title %></b>
+            </li>
+            <li>
+              책 번호 :
+              <%= book_detail.book_id %>-<%= book_detail.sequence %>
+            </li>
+            <li>
+              출판사 :
+              <%= book_detail.publisher %>
+            </li>
+            <li>
+              글쓴이 :
+              <%= book_detail.author %>
+            </li>
+            <li>
+              분류 :
+              <%= book_detail.subject %>
+            </li>
+            <li>
+              출판일 :
+              <%= moment(book_detail.publish_date).format('YYYY-MM-DD') %>
+            </li>
+            <li>
+              <% var strStatus = book_detail.status;
                 if(strStatus == 1){ %>
-              대여상태 : 대여 가능
-              <% }else { %>
-                대여상태 : 대여 불가
-                <% } %>
-          </li>
-        </ul>
-      </div>
+                대여상태 : 대여 가능
+            </li>
+          </ul>
+          <center>
+            <button class="btn btn-primary" type="button" onclick="location.href = '/book/interest_book?book_id=<%= book_detail.book_id %>&sequence=<%= book_detail.sequence %>'">관심 등록</button>
+            <button type="button" class="btn btn-primary key" onclick="history.back();">뒤로가기</button>
+          </center>
+          <% }else { %>
+            대여상태 : 대여 불가
+            </li>
+            </ul>
+            <br/><br/>
+            <center>
+              <button class="btn btn-success" type="button" onclick="location.href = '/book/reservation?book_id=<%= book_detail.book_id %>&sequence=<%= book_detail.sequence %>'">예약</button>
+              <button class="btn btn-primary" type="button" onclick="location.href = '/book/interest_book?book_id=<%= book_detail.book_id %>&sequence=<%= book_detail.sequence %>'">관심 등록</button>
+              <button type="button" class="btn btn-primary key" onclick="history.back();">뒤로가기</button>
+            </center>
+            <% } %>
+        </div>
       </div>
     </div>
   </div>
