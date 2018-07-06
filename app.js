@@ -5,7 +5,6 @@ var express = require('express'),
     session = require('express-session'),
     bcrypt = require('bcrypt-nodejs'),
     MySQLStore = require('express-mysql-session')(session);
-var morgan = require('morgan');
 var passport = require('passport'), LocalStrategy = require('passport-local').Strategy;
 // mysql 연결
 var mysql = require('mysql');
