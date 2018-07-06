@@ -8,6 +8,8 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.0.0/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.2/moment-with-locales.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.0.0/js/bootstrap-datetimepicker.min.js"></script>
+  <script src="https://npmcdn.com/js-alert/dist/jsalert.min.js"></script>
+  
 
   <script>
     $(document).ready(function() {
@@ -22,7 +24,6 @@
          }else{
            location.href='/book/create_oldbook_form';
          }
-
       });
     });
 
@@ -33,6 +34,10 @@
     });
     $('#toDate').datetimepicker({ language : 'ko', pickTime : false, defalutDate : new Date() });
 
+    function selectOneBook(){
+      var book_id = document.oldFormBook.book_id.value
+      location.href='/book/select_one_book?book_id='+book_id;
+    }
   </script>
 </head>
 
@@ -45,29 +50,32 @@
       <div class="container-fluid">
 
         <h1>새 책 등록</h1>
-        <form action="/book/create" method="POST">
+        <form action="/book/create" method="POST" name="oldFormBook">
           <label class="radio-inline">
-            <input type="radio" name="optionsRadios" value="new" checked onchage="createOption();"> 새 책
+            <input type="radio" name="optionsRadios" value="new"> 새 책
           </label>
           <label class="radio-inline">
-            <input type="radio" name="optionsRadios" value="old" onchage="createOption"> 이미 있는 책
+            <input type="radio" name="optionsRadios" value="old" checked> 이미 있는 책
           </label>
           <table class="table">
             <tr>
               <td>등록 번호</td>
-              <td><input type="text" class="form-control" name="book_id"></td>
+              <td><input type="text" class="form-control" id="book_id" name="book_id" />
+
+              </td>
+              <td><button type="button" class="btn" onclick="selectOneBook();">검색</button></td>
             </tr>
             <tr>
               <td>책 이름</td>
-              <td><input type="text" class="form-control" name="title"></td>
+              <td><input type="text" class="form-control" name="title" pageholder='등록 번호 입력하세요' readonly></td>
             </tr>
             <tr>
               <td>출판사</td>
-              <td><input type="text" class="form-control" name="publisher"></td>
+              <td><input type="text" class="form-control" name="publisher" pageholder='등록 번호 입력하세요' readonly></td>
             </tr>
             <tr>
               <td>저자</td>
-              <td><input type="text" class="form-control" name="author"></td>
+              <td><input type="text" class="form-control" name="author" pageholder='등록 번호 입력하세요' readonly></td>
             </tr>
             <tr>
               <td>주제</td>
