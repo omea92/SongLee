@@ -44,6 +44,5 @@ module.exports = function(session, connection) {
     res.send('Hello Passport');
   });
   module.exports = route;
-
   return route;
 };
