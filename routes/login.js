@@ -6,7 +6,6 @@ module.exports = function(session, connection) {
   var fs = require('fs');
   var mysql = require('mysql');
   var path = require('path');
-  var flash = require('connect-flash');
   var Login = require('./login');
   var bodyParser = require('body-parser');
 
@@ -45,9 +44,6 @@ module.exports = function(session, connection) {
     res.send('Hello Passport');
   });
   module.exports = route;
-
-  route.use(flash());
-
 
   return route;
 };
