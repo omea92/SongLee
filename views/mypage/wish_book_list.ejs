@@ -10,13 +10,32 @@
       $("#header").load("/include/header.ejs");
       $("#sidebar-wrapper").load("/include/sideMypage.ejs");
       $("#search").load("/include/search.ejs");
+
+
+
+      //document.getElementById('content_row').addEventListener('click', show_content);
     });
 
     function delete_wish_list(wish_no) {
       alert('희망 도서 신청을 취소하시겠습니까?');
       location.href = '/mypage/delete_wish_list?wish_no=' + wish_no;
     }
+
   </script>
+  <style>
+
+
+  .no {
+    width: 10%;
+  }
+
+  .content {
+    width: 80%;
+  }
+  .but {
+    width: 10%;
+  }
+  </style>
 </head>
 
 <body>
@@ -31,14 +50,14 @@
         <h1>MY 희망 도서 신청 내역</h1>
         <hr/>
         <table class="table">
-          <th>신청 번호</th>
-          <th>신청 내용</th>
-          <th></th>
+          <th class = "no">신청 번호</th>
+          <th class = "content">신청 내용</th>
+          <th class = "but"></th>
           <%
             if(wish_results.length > 0){
               for(var i = 0; i < wish_results.length; i++){
             %>
-            <tr>
+            <tr id = "content_row">
               <td>
                 <%= wish_results[i].wish_no %>
               </td>
