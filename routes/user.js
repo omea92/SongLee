@@ -161,5 +161,5 @@ module.exports = function(connection) {
     //   });
     // });
 
-    return route;
+  return route;
 };
