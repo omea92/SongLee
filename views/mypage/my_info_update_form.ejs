@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <script src="http://code.jquery.com/jquery-1.12.4.js"></script>
+  <script>
+    $(document).ready(function() {
+      $("#header").load("/include/header.ejs");
+      $("#sidebar-wrapper").load("/include/sideMypage.ejs");
+      $("#search").load("/include/search.ejs");
+
+      if('<%=my_info[0].gender%>' == 'F'){
+        $('input[name=gender]:eq(0)').attr('checked', true);
+      } else {
+        $('input[name=gender]:eq(1)').attr('checked', true);
+      }
+    });
+
+    function deleteMember(id) {
+      var check = confirm('탈퇴하시겠습니까?');
+      if (check) {
+        location.href = '/mypage/user_delete?user_id=' + id;
+      } else {
+        return;
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <div id="header"></div>
+  <div class="container">
+    <div id="search"></div>
+  </div>
+  <div id="page-wrapper">
+    <div id="sidebar-wrapper"></div>
+
+    <div id="page-content-wrapper">
+      <div class="container-fluid">
+
+        <h1>MY 정보 수정</h1>
+        <hr/>
+        <form action="/mypage/user_update" method="post">
+          <ul>
+            <%if(my_info.length > 0) {
+              my_info.forEach(function(my_info){%>
+              <li>
+                <p>아 이 디 : <input type="text" class="form-control" name="user_id" readonly value=<%=my_info.user_id%>></p>
+              </li>
+              <li>
+                <p>비밀번호 : <input type="text" class="form-control" name="password" value=<%=my_info.password%>></p>
+              </li>
+              <li>
+                <p>이 름 : <input type="text" class="form-control" name="name" value=<%=my_info.name%>></p>
+              </li>
+              <li>
+                <p>생년월일 : <input type="date" class="form-control" style = "width:200px;" name="birthdate" value=<%=my_info.birthdate%> min="1900-01-01" max="2018-07-06"></p>
+              </li>
+              <li>
+                <p>
+                  성 별 &nbsp; <label><input type="radio" name="gender" value='F'>여성</label>
+                  &nbsp;&nbsp; <label><input type="radio" name="gender" value='M'>남성</label>
+                </p>
+              </li>
+              <li>
+                <p>이 메 일 : <input type="text" class="form-control" name="email" value=<%=my_info.email%>></p>
+              </li>
+              <%});
+            }%>
+          </ul>
+          <button class="btn" type="submit">수정</button>
+          <button class="btn" type="button" onclick="javascript:deleteMember('<%=my_info.user_id %>')">탈퇴</button>
+          <button type="button" class="btn btn-primary key" onclick="history.back();">뒤로가기</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

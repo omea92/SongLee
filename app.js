@@ -67,7 +67,6 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.get('/', function(req, res) {
-  // 분야 별 1위 도서 select하기!
   var sql = 'SELECT * FROM book ORDER BY borrow_count DESC LIMIT 1;' + 'SELECT * FROM book WHERE subject = "교육" ORDER BY borrow_count DESC LIMIT 1;' + 'SELECT * FROM book WHERE subject LIKE "%만화" ORDER BY borrow_count DESC LIMIT 1';
 
   connection.query(sql, function(err, results, fields){

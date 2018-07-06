@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Reservation Complete!</title>
+    <script src="http://code.jquery.com/jquery-1.12.4.js"></script>
+    <script>
+      $(document).ready(function(){
+          $("#header").load("/include/header.ejs");
+          $("#sidebar-wrapper").load("/include/sideMypage.ejs");
+          $("#search").load("/include/search.ejs");
+      });
+    </script>
+  </head>
+  <body>
+    <div id="header"></div>
+    <div class="container">
+      <div id="search"></div>
+    </div>
+    <div id="page-wrapper">
+      <div id="sidebar-wrapper"></div>
+
+      <div id="page-content-wrapper">
+        <div class="container-fluid">
+
+          <h1>MY 대출 기록</h1>
+          <hr/>
+          <table class = "table">
+            <tr>
+              <th>제목</th>
+              <th>책 번호</th>
+              <th>출판사</th>
+              <th>글쓴이</th>
+              <th>분류</th>
+              <th>출판일</th>
+              <th>대여일</th>
+              <th>반납일</th>
+            </tr>
+            <%
+            if(history_results.length > 0){
+              for(var i = 0; i < history_results.length; i++){
+            %>
+            <tr>
+              <td><%= history_results[i].title %></td>
+              <td><%= history_results[i].book_id %>-<%=history_results[i].sequence %></td>
+              <td><%= history_results[i].publisher %></td>
+              <td><%= history_results[i].author %></td>
+              <td><%= history_results[i].subject %></td>
+              <td><%= moment(history_results[i].publish_date).format('YYYY-MM-DD') %></td>
+              <td><%= moment(history_results[i].borrow_date).format('YYYY-MM-DD') %></td>
+              <td><%= moment(history_results[i].return_date).format('YYYY-MM-DD') %></td>
+            </tr>
+            <%
+            }
+          } else { %>
+            <tr align = "center">
+              <td colspan="7">대여 기록이 존재하지 않습니다.</td>
+            </tr>
+            <% } %>
+          </table>
+        </div>
+      </div>
+    </div>
+
+</body>
+</html>
