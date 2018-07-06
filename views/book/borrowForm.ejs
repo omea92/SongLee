@@ -27,7 +27,7 @@
                   "<td>" + result['book'].title + " </td>" +
                     "<td>" + result['book'].author + " </td>" +
                     "<td>" + result['book'].publisher + " </td>" +
-                    "<td>" + result['book'].status + " </td> </tr>");
+                    "<td> 대여 가능  </td> </tr>");
                   document.borrowForm.returnDate.value = result['book'].returnDate;
                 } else {
                   alert('대출 가능한 책이 아닙니다.');
@@ -58,7 +58,6 @@
     }
 
     function borrowBook() {
-
       if(!checkTabele()){
         return false;
       }
@@ -94,6 +93,7 @@
         alert('유저 아이디를 입력하세요');
         return false;
       }
+      return true;
     }
 
     function resetTable(){

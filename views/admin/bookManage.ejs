@@ -23,7 +23,6 @@
       <div id="page-content-wrapper">
         <div class="container-fluid">
           <h1>도서 관리</h1>
-          <p>container-fluid 안에서 개발 하시면 됩니다. </p>
           <table class="table table-bordered table-hover">
             <thead>
               <th>등록번호</th>
@@ -35,7 +34,7 @@
             </thead>
             <tbody>
             <% books.forEach(function(book){ %>
-            <tr>
+              <tr onclick="location.href = '/book/detail?book_id=<%= book.book_id %>&sequence=<%= book.sequence %>'" style="cursor:pointer">
               <td><%= book.book_id %>-<%= book.sequence %></td>
               <td><%= book.title %></td>
               <td><%= book.publisher %></td>

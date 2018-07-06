@@ -3,6 +3,8 @@ module.exports = function(connection) {
   var route = express.Router();
   var moment = require('moment');
   var mysql = require('mysql');
+  var fs = require('fs');
+  var multipar = require('connect-multiparty')
 
   route.post('/search', function(req, res) {
     var search = req.body.search;
@@ -57,11 +59,11 @@ module.exports = function(connection) {
     var sql = ' select wish_no, wish_content, user_id from wish_book order by wish_no desc';
     sql = mysql.format(sql);
     console.log(sql);
-    connection.query(sql, function(err, results, fields){
+    connection.query(sql, function(err, results, fields) {
       console.log(results);
       res.render('book/wishList', {
-        layout:false,
-        wishList : results
+        layout: false,
+        wishList: results
       })
     })
   });
@@ -85,15 +87,40 @@ module.exports = function(connection) {
   });
 
   route.post('/create', function(req, res) {
+    var comment = req.body.comment;
+    var imageFile = req.files.bookImage;
+
+    if(imageFile){
+      var name = imageFile.name;
+      var path = imageFile.path;
+      var type = imageFile.type;
+      var extension = name.split('.');
+
+      if(type.indexOf('image') != -1){
+        var outputpath = 'C:/Users/BIT/dev/public/img/' + req.body.book_id + '.' + extension[1];
+        fs.rename(path, outputpath, function(err){
+          if(err){
+            throw err;
+          }
+        })
+      } else {
+        fs.unlink(path, function(err){
+          if(err){
+            throw err;
+          }
+        })
+      }
+    }
+
     var book_id = req.body.book_id;
     var title = req.body.title;
     var publisher = req.body.publisher;
     var author = req.body.author;
     var subject = req.body.subjet;
     var publish_date = req.body.publish_date;
-    var param = [book_id, title, publisher, author, subject, publish_date];
-    var sql = ' insert into book(book_id, title, publisher, author, subject, publish_date, sequence) ' +
-      ' values (?,?,?,?,?,?,1) ';
+    var param = [book_id, title, publisher, author, subject, publish_date, outputpath];
+    var sql = ' insert into book(book_id, title, publisher, author, subject, publish_date, sequence, image_path) ' +
+      ' values (?,?,?,?,?,?,1,?) ';
 
     sql = mysql.format(sql, param);
     connection.query(sql, param, function(err) {
@@ -196,8 +223,8 @@ module.exports = function(connection) {
     var param2 = [book_id, sequence, user_id];
 
     var sql = 'update book set status = 0, borrow_Count = borrow_Count+1 where book_id=? and sequence=?';
-    var sql2 = 'insert into user_history(book_id, sequence, user_id, borrow_date, return_date) '
-             + ' values(?, ?, ?, now(), null) ';
+    var sql2 = 'insert into user_history(book_id, sequence, user_id, borrow_date, return_date) ' +
+      ' values(?, ?, ?, now(), null) ';
     console.log(sql);
     sql = mysql.format(sql, param);
 
@@ -212,102 +239,102 @@ module.exports = function(connection) {
       }
     });
 
-    connection.query(sql2, param2, function(err){
-      if(err)
+    connection.query(sql2, param2, function(err) {
+      if (err)
         throw err;
     });
   });
-    route.get('/reciveBook', function(req, res) {
-      var book_id = req.query.book_id;
-      var sequence = req.query.sequence;
-      var user_id = req.query.user_id;
-      var param = [book_id, sequence];
+  route.get('/reciveBook', function(req, res) {
+    var book_id = req.query.book_id;
+    var sequence = req.query.sequence;
+    var user_id = req.query.user_id;
+    var param = [book_id, sequence];
 
-      var sql = 'update book set status = 1 where book_id=? and sequence=?';
-      var sql2 = 'update user_history '
-               + ' set return_date = now() '
-               + ' where book_id = ? and sequence = ? and return_date is null ';
-      console.log(sql);
-      sql = mysql.format(sql, param);
+    var sql = 'update book set status = 1 where book_id=? and sequence=?';
+    var sql2 = 'update user_history ' +
+      ' set return_date = now() ' +
+      ' where book_id = ? and sequence = ? and return_date is null ';
+    console.log(sql);
+    sql = mysql.format(sql, param);
 
-      connection.query(sql, param, function(err) {
-        if (err)
-          throw err;
-        else {
-          res.send({
-            result: 'success'
-          });
-          console.log('success');
-        }
-      });
-
-      connection.query(sql2, param, function(err){
-        if(err)
-          throw err;
-      });
-    });
-
-route.get('/wish_book', function(req, res){
-  var wish_content = req.query.wish_content;
-  var user_id = 'dpthf403';
-  var sql = 'INSERT INTO wish_book (wish_content, user_id) VALUES (?, ?)';
-  var params = [wish_content, user_id];
-  sql = mysql.format(sql, params);
-  connection.query(sql, function(err){
-    if(err){
-      throw err;
-    } else {
-      res.redirect('/mypage/wish_book_list');
-    }
-  });
-});
-
-route.get('/wish_book_form', function(req, res){
-  res.render('book/wish_book_form');
-});
-
-route.get('/interest_book', function(req, res){
-  var book_id = req.query.book_id;
-  var sequence = req.query.sequence;
-  var user_id = 'dpthf403';
-  var sql = 'INSERT INTO interest_book VALUES (?, ?, ?)';
-  var params = [book_id, sequence, user_id];
-  sql = mysql.format(sql, params);
-  connection.query(sql, function(err, results, fields){
-    res.render('book/interest_book', {
-      results: results
-    });
-  });
-});
-
-route.get('/reservation', function(req, res) {
-  var book_id = req.query.book_id;
-  var sequence = req.query.sequence;
-  var user_id = 'dpthf403';
-  var sql = 'SELECT return_date FROM borrow WHERE book_id = ? and sequence = ? and user_id = ? ;';
-  var params = [book_id, sequence, user_id];
-  sql = mysql.format(sql, params);
-  connection.query(sql, function(err, results, fields) {
-    var result = JSON.stringify(results);
-    if (err) {
-      throw err;
-    } else {
-      var strArray = result.split('"'); // "기준으로 잘라서 strArray에 배열형태로 넣음
-      var return_date = strArray[3];
-      console.log(return_date);
-      console.log(typeof(return_date));
-      return_date = return_date.substring(0, 10);
-      var sql2 = 'INSERT INTO reservation VALUES (?, ?, ?, ?);';
-      var params = [book_id, sequence, user_id, return_date];
-      sql2 = mysql.format(sql2, params);
-      connection.query(sql2, function(err, results, fields) {
-        res.render('book/reservation', {
-          results: results
+    connection.query(sql, param, function(err) {
+      if (err)
+        throw err;
+      else {
+        res.send({
+          result: 'success'
         });
-      });
-    }
+        console.log('success');
+      }
+    });
+
+    connection.query(sql2, param, function(err) {
+      if (err)
+        throw err;
+    });
   });
-});
+
+  route.get('/wish_book', function(req, res) {
+    var wish_content = req.query.wish_content;
+    var user_id = 'dpthf403';
+    var sql = 'INSERT INTO wish_book (wish_content, user_id) VALUES (?, ?)';
+    var params = [wish_content, user_id];
+    sql = mysql.format(sql, params);
+    connection.query(sql, function(err) {
+      if (err) {
+        throw err;
+      } else {
+        res.redirect('/mypage/wish_book_list');
+      }
+    });
+  });
+
+  route.get('/wish_book_form', function(req, res) {
+    res.render('book/wish_book_form');
+  });
+
+  route.get('/interest_book', function(req, res) {
+    var book_id = req.query.book_id;
+    var sequence = req.query.sequence;
+    var user_id = 'dpthf403';
+    var sql = 'INSERT INTO interest_book VALUES (?, ?, ?)';
+    var params = [book_id, sequence, user_id];
+    sql = mysql.format(sql, params);
+    connection.query(sql, function(err, results, fields) {
+      res.render('book/interest_book', {
+        results: results
+      });
+    });
+  });
+
+  route.get('/reservation', function(req, res) {
+    var book_id = req.query.book_id;
+    var sequence = req.query.sequence;
+    var user_id = 'dpthf403';
+    var sql = 'SELECT return_date FROM borrow WHERE book_id = ? and sequence = ? and user_id = ? ;';
+    var params = [book_id, sequence, user_id];
+    sql = mysql.format(sql, params);
+    connection.query(sql, function(err, results, fields) {
+      var result = JSON.stringify(results);
+      if (err) {
+        throw err;
+      } else {
+        var strArray = result.split('"'); // "기준으로 잘라서 strArray에 배열형태로 넣음
+        var return_date = strArray[3];
+        console.log(return_date);
+        console.log(typeof(return_date));
+        return_date = return_date.substring(0, 10);
+        var sql2 = 'INSERT INTO reservation VALUES (?, ?, ?, ?);';
+        var params = [book_id, sequence, user_id, return_date];
+        sql2 = mysql.format(sql2, params);
+        connection.query(sql2, function(err, results, fields) {
+          res.render('book/reservation', {
+            results: results
+          });
+        });
+      }
+    });
+  });
 
   return route;
 };

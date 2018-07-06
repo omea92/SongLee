@@ -15,13 +15,27 @@
         $('input[name=gender]:eq(1)').attr('checked', true);
       }
 
+      if('<%=user.type%>' == 'A'){
+        $('input[name=type]:eq(0)').attr('checked', true);
+      } else if('<%=user.type%>' == 'U'){
+        $('input[name=type]:eq(1)').attr('checked', true);
+      } else if('<%=user.type%>' == 'N'){
+        $('input[name=type]:eq(2)').attr('checked', true);
+      }
+
       });
 
       function deleteMember(id){
-        alert('deleteMemeber');
-        location.href='/admin/user_delete?user_id='+id;
 
+        if(confirm("정말로 탈퇴하시겠습니까?"))
+        location.href='/admin/user_delete?user_id='+id;
       }
+
+      function confirmUpdateMsg(){
+        return confirm("정말로 수정하겠습니까?");
+      }
+
+
     </script>
   </head>
     <body>
@@ -31,19 +45,22 @@
 
       <div id="page-content-wrapper">
         <div class="container-fluid">
+          <form action="/admin/user_update" method="post" onsubmit="return confirmUpdateMsg()">
           <h1>유저 상세 정보</h1>
           <ul>
-            <li><p>아 이 디 : <input type ="text" class="form-control" value=<%= user.user_id%>></p></li>
-            <li><p>이    름 :  <input type ="text" class="form-control" value=<%= user.name%>></p></li>
-            <li><p>생년월일 :    <input id="someDate" type="date" class="form-control" name = "birthdate" value=<%=user.birthdate %>></p></li>
-            <li><p>성    별 : <label class="chckbox-inline">
-                <input type ="radio" name="gender" value="F"> 여자
-                <input type ="radio" name="gender" value="M"> 남자 </p></li>
-            <li><p>이 메 일 : <input type ="text" class="form-control" value=<%= user.email%>></p></li>
-            <li><p>구    분 : <input type ="text" class="form-control" value=<%= user.type%>></p></li>
+            <li><p>아 이 디 : <input type ="text" name ="user_id" class="form-control" required readonly value=<%= user.user_id%>></p></li>
+            <li><p>이    름 :  <input type ="text" name="name" class="form-control" required value=<%= user.name%>></p></li>
+            <li><p>생년월일 :    <input id="someDate" name="birthdate" type="date" required class="form-control" name = "birthdate" value=<%=user.birthdate %>></p></li>
+            <li><p>성    별 : <label class="radio-inline"><input type ="radio" name="gender" value="F"> 여자</label>
+                <label class="radio-inline"><input type ="radio" name="gender" value="M"> 남자</label> </p></li>
+            <li><p>이 메 일 : <input type ="text" name="email" class="form-control" required value=<%= user.email%>></p></li>
+            <li><p>구    분 : <label class="radio-inline"><input type ="radio" name="type" value="A"> 관리자</label>
+              <label class="radio-inline"><input type ="radio" name="type" value="U"> 회원</lable>
+              <label class="radio-inline"><input type ="radio" name="type" value="N"> 탈퇴회원 </label></p></li>
           </ul>
-          <button class ="btn">수정</button>
+          <button type ="submit" class ="btn btn-primary">수정</button>
           <button class ="btn" onclick="javascript:deleteMember('<%= user.user_id %>')">삭제</button>
+        </form>
         </div>
       </div>
     </div>

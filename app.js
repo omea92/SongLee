@@ -10,6 +10,9 @@ var passport = require('passport'), LocalStrategy = require('passport-local').St
 var mysql = require('mysql');
 var connection = mysql.createConnection(require('./config/dbconfig'));
 var app = express();
+//파일 입력 관련 npm 추가 writer:koo
+var multipart = require('connect-multiparty');
+
 
 //정원준 작성 부분////////////////////////////
 app.use(bodyParser.urlencoded({extended: false}));
@@ -78,6 +81,7 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({
   extended: false
 }));
+app.use(multipart({uploadDir: __dirname + '/public/img'}));
 
 app.get('/', function(req, res) {
   var sql = 'SELECT * FROM book ORDER BY borrow_count DESC LIMIT 1;' + 'SELECT * FROM book WHERE subject = "교육" ORDER BY borrow_count DESC LIMIT 1;' + 'SELECT * FROM book WHERE subject LIKE "%만화" ORDER BY borrow_count DESC LIMIT 1';

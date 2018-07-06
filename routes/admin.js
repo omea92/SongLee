@@ -4,7 +4,7 @@ module.exports = function(connection) {
   var mysql = require('mysql');
 
   route.get('/', function(req, res) {
-    res.render('admin/admin');
+    res.render('book/borrowForm');
   });
 
   route.get('/user_list', function(req, res) {
@@ -35,6 +35,30 @@ module.exports = function(connection) {
         layout: false,
         user: data[0]
       });
+    });
+  });
+
+  route.post('/user_update', function(req, res){
+    var user_id = req.body.user_id;
+    var password = req.body.password;
+    var name = req.body.name;
+    var birthdate = req.body.birthdate;
+    var email = req.body.email;
+    var gender = req.body.gender;
+    var type = req.body.type;
+    var sql = 'UPDATE user SET name = ?, birthdate = ?, email = ?, gender = ?, type = ? WHERE user_id = ?';
+    var params = [name, birthdate, email, gender, type, user_id];
+
+    sql = mysql.format(sql, params);
+    console.log(sql);
+
+    connection.query(sql, function(err, results, fields){
+      if(err){
+        throw err;
+      } else {
+        console.log('정보 수정 성공');
+        res.redirect('/admin/user_list');
+      }
     });
   });
 

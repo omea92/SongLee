@@ -45,7 +45,7 @@
       <div class="container-fluid">
 
         <h1>새 책 등록</h1>
-        <form action="/book/create" method="POST">
+        <form action="/book/create" method="POST" enctype="multipart/form-data">
           <label class="radio-inline">
             <input type="radio" name="optionsRadios" value="new" checked onchage="createOption();"> 새 책
           </label>
@@ -82,6 +82,12 @@
               <td>출판일자</td>
               <td>
                 <input id="someDate" type="date" class="form-control" name = "publish_date">
+              </td>
+            </tr>
+            <tr>
+              <td>도서 사진</td>
+              <td>
+                <input type="file" class="form-control" name = "bookImage">
               </td>
             </tr>
           </table>

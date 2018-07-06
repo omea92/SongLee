@@ -13,7 +13,7 @@
 
       $('#addBook').on('click', function() {
         var table = document.getElementById('bookList');
-        var book_id = document.borrowForm.book_id.value;
+        var book_id = document.returnForm.book_id.value;
         var param = book_id.split('-');
         $.ajax({
           type: 'GET',
@@ -29,8 +29,7 @@
                     "<td>" + result['book'].title + " </td>" +
                     "<td>" + result['book'].author + " </td>" +
                     "<td>" + result['book'].publisher + " </td>" +
-                    "<td>" + result['book'].status + " </td> </tr>");
-                  document.borrowForm.count.value = Number(document.borrowForm.count.value) + 1;
+                    "<td> 반납 가능 </td> </tr>");
                 } else {
                   alert('반납 가능한 책이 아닙니다.');
                 }
@@ -46,7 +45,7 @@
     function duplicated(result) {
       var duplicated = true;
       var table = document.getElementById('bookList');
-      var book_id = document.borrowForm.book_id.value;
+      var book_id = document.returnForm.book_id.value;
 
       $.each(table.rows, function(i) {
         var book_id = table.rows[i].cells[0].innerText;
@@ -95,6 +94,8 @@
         alert('등록 번호를 입력하여 책을 추가하세요.')
         return false;
       }
+
+      return true;
     }
 
   </script>
