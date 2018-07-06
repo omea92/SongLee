@@ -3,7 +3,6 @@ module.exports = function(connection) {
   var route = express.Router();
   var moment = require('moment');
   var mysql = require('mysql');
-  var JSAlert = require("js-alert");
 
   route.post('/search', function(req, res) {
     var search = req.body.search;
@@ -124,7 +123,6 @@ module.exports = function(connection) {
         console.log(data[0]);
         if (!data[0]) {
           console.log(data[0] + 'if');
-          JSAlert.alert("hi");
           res.redirect('/book/create_oldbook_form');
         } else {
           res.render('book/selectOneBook', {
