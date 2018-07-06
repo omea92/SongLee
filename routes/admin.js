@@ -3,6 +3,8 @@ module.exports = function(connection){
   var route = express.Router();
   var mysql = require('mysql');
 
+  console.log('.admin');
+
   route.get('/', function(req, res){
     res.render('admin/admin');
   });

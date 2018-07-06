@@ -5,11 +5,18 @@ var express = require('express'),
     session = require('express-session'),
     bcrypt = require('bcrypt-nodejs'),
     MySQLStore = require('express-mysql-session')(session);
-
+var morgan = require('morgan');
+var passport = require('passport'), LocalStrategy = require('passport-local').Strategy;
 // mysql 연결
 var mysql = require('mysql');
 var connection = mysql.createConnection(require('./config/dbconfig'));
 var app = express();
+
+//정원준 작성 부분////////////////////////////
+app.use(bodyParser.urlencoded({extended: false}));
+//정원준 작성 부분////////////////////////////
+
+
 connection.connect(function(err) {
   if (err) {
     console.log(err);
@@ -17,7 +24,6 @@ connection.connect(function(err) {
   }
   console.log('mysql connect completed');
 });
-
 
 //세션 등록//////////////////////////////
 var options = {
@@ -34,6 +40,14 @@ app.use(session({
   saveUninitialized: true,
   store : sessionStore
 }));
+app.get('/', function(req, res){
+  req.session.user_id = paramId;
+  console.log(req.session.user_id);
+	if(req.session.authId)
+		res.send(authId+'님 로그인되었습니다');
+	else
+		res.send('로그인하세요!');
+});
 
 
 //마이페이지//////////////////////
@@ -45,12 +59,12 @@ app.use(bodyParser.urlencoded({
 
 app.use(bodyParser.json());
 
-//회원가입 (정원준)
+//회원가입
 var user = require('./routes/user')(connection);
 app.use('/user', user);
 
 //로그인
-var login = require('./routes/login')(session, connection);
+var login = require('./routes/login')(session, connection, passport);
 app.use('/login', login);
 
 
