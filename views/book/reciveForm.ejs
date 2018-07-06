@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <script src="http://code.jquery.com/jquery-1.12.4.js"></script>
+  <script>
+    $(document).ready(function() {
+      $("#header").load("/include/header.ejs");
+      $("#sidebar-wrapper").load("/include/sideadminpage.ejs");
+
+
+      $('#addBook').on('click', function() {
+        var table = document.getElementById('bookList');
+        var book_id = document.borrowForm.book_id.value;
+        var param = book_id.split('-');
+        $.ajax({
+          type: 'GET',
+          url: 'bookSearchInBorrow?book_id=' + param[0] + '&sequence=' + param[1],
+          success: function(result, data) {
+            var state = result['result'];
+            var status = result['book'].status; //대여 가능 상태 여부
+
+            if (duplicated(result)) {
+              if (state == 'success') {
+                if (status == '0' || status =='2') {
+                  $("tbody").append("<tr> <td>" + result['book'].book_id + '-' + result['book'].sequence + " </td> " +
+                    "<td>" + result['book'].title + " </td>" +
+                    "<td>" + result['book'].author + " </td>" +
+                    "<td>" + result['book'].publisher + " </td>" +
+                    "<td>" + result['book'].status + " </td> </tr>");
+                  document.borrowForm.count.value = Number(document.borrowForm.count.value) + 1;
+                } else {
+                  alert('반납 가능한 책이 아닙니다.');
+                }
+              } else {
+                alert('등록된 책이 아닙니다.');
+              }
+            }
+          }
+        });
+      });
+    });
+
+    function duplicated(result) {
+      var duplicated = true;
+      var table = document.getElementById('bookList');
+      var book_id = document.borrowForm.book_id.value;
+
+      $.each(table.rows, function(i) {
+        var book_id = table.rows[i].cells[0].innerText;
+        if (result['book'].book_id + '-' + result['book'].sequence === book_id) {
+          alert('이미 등록된 책입니다.');
+          duplicated = false;
+          return false;
+        }
+      });
+      return duplicated;
+    }
+
+    function returnBook() {
+      if(!checkTabele()){
+        return false;
+      }
+
+      var table = document.getElementById('bookList');
+      var msg = "";
+      $.each(table.rows, function(i) {
+        var book_id = table.rows[i].cells[0].innerText;
+        var title = table.rows[i].cells[1].innerText;
+        var params = book_id.split('-');
+        $.ajax({
+          type: 'GET',
+          url: "/book/reciveBook?book_id=" + params[0] + "&sequence=" + params[1],
+          completed: function(result) {}
+        });
+        msg += title + '\n';
+      });
+      msg += '정상적으로 반납되었습니다.'
+      alert(msg);
+      location.href = "/book/reciveForm";
+    }
+
+    function resetTable(){
+        var table = document.getElementById('bookList');
+        table.innerHTML = '';
+    }
+
+    function checkTabele(){
+      var form = document.returnForm;
+      var table = document.getElementById('bookList');
+
+      if(table.rows.length < 1){
+        alert('등록 번호를 입력하여 책을 추가하세요.')
+        return false;
+      }
+    }
+
+  </script>
+</head>
+
+<body>
+  <div id="header"></div>
+  <div id="page-wrapper">
+    <div id="sidebar-wrapper"></div>
+
+    <div id="page-content-wrapper">
+      <div class="container-fluid">
+
+        <h1>도서 반납</h1>
+        <form name="returnForm" >
+          <form-inline>
+            <label>등록 번호</label>
+            <input type="text" id="book_id" name="book_id" class="form-control" placeholder="등록번호를 입력하여 책을 조회하세요">
+          </form-inline>
+          <form-inline>
+            <button type="button" class="btn" id="addBook">추가</button>
+            <button type="button" class="btn">삭제(미구현)</button>
+          </form-inline>
+          <table id="bookListHead" name="bookListHead" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+              <tr>
+                <th>등록번호</th>
+                <th>제목</th>
+                <th>저자</th>
+                <th>출판사</th>
+                <th>대여상태</th>
+              </tr>
+            </thead>
+            <tbody id="bookList" name="bookList">
+
+            </tbody>
+          </table>
+          <button type="button" class="btn" onclick="javascript:returnBook();">반납</button>
+          <button type="reset" class="btn" onclick="javascript:resetTable();">리셋</button>
+          <button type="button" class="btn" onclick="history.back();">뒤로가기</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

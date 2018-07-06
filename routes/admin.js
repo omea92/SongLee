@@ -38,9 +38,9 @@ module.exports = function(connection) {
     });
   });
 
-  route.get('/user_delete', function(req, res) {
-    var sql = ' delete from user ' +
-      ' where user_id = ?';
+  route.get('/user_delete', function(req, res){
+    var sql = 'UPDATE user SET type = "N", password = null, name = null, birthdate = null, gender = null, email = null WHERE user_id = ?';
+
     var id = req.query.user_id;
     console.log(id);
     sql = mysql.format(sql, id);
