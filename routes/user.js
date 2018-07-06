@@ -33,30 +33,26 @@ module.exports = function(connection) {
       //     return res.send('아이디가 불일치 합니다.');
       //   }
       // });
-      var user = {
-        paramId : req.body.user_id,
-        paramPassword : req.body.password
-      };
       var sql = 'select user_id from user where user_id = ?';
       //var sql2 = 'select password from user where password = ?';
       var params = [paramId, paramPassword];
       sql = mysql.format(sql, params[0]);
-      connection.query(sql, user, function(err, results) {
+      connection.query(sql, function(err, results) {
         //JSON.stringify(results); -> json문자열
         var result = JSON.stringify(results);
         var final = result.substring(13, 20);
+        var final2 = result.substring(13, 18);
         // if(req.session.user_id) {
         //   res.send(user_id + '님 로그인 성공');
         //   res.redirect('/');
         // } else {
         //   res.send('<script>alert("세션 저장하세요.."); history.back();</script>');
         // }
-        // if(final == params[0]){
-        //   res.send('<script>alert("환영합니다!"); location.href="/";</script>');
-        // } else {
-        //   res.send('<script>alert("아이디나 비밀번호가 틀려서 되돌아 갑니다!"); history.back();</script>');
-        //   res.render('/loginForm');
-        // }
+        if((final == params[0]) || (final2 == params[0])){
+          res.send('<script>alert("환영합니다!"); location.href="/";</script>');
+        } else {
+          res.send('<script>alert("아이디가 틀려서 되돌아 갑니다!"); history.back();</script>');
+        }
       });
 
       //로그인 해결책 참조//////////////////////////////////////////////////////
