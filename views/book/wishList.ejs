@@ -1,46 +1,55 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <script src="http://code.jquery.com/jquery-1.12.4.js"></script>
-    <script>
-      $(document).ready(function(){
-          $("#header").load("/include/header.ejs");
-          $("#sidebar-wrapper").load("/include/sideadminpage.ejs");
-      });
 
-      function moveCreateBook(){
-        location.href='/book/create_book_form'
-      }
-    </script>
-  </head>
-    <body>
-    <div id="header"></div>
-    <div id="page-wrapper">
-      <div id="sidebar-wrapper"></div>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <script src="http://code.jquery.com/jquery-1.12.4.js"></script>
+  <script>
+    $(document).ready(function() {
+      $("#header").load("/include/header.ejs");
+      $("#sidebar-wrapper").load("/include/sideadminpage.ejs");
+    });
 
-      <div id="page-content-wrapper">
-        <div class="container-fluid">
-          <h1>희망 도서 내역</h1>
-          <table class="table table-bordered table-hover">
-            <thead>
-              <th>번호</th>
-              <th>내용</th>
-              <th>아이디</th>
-            </thead>
-            <tbody>
+    function moveCreateBook() {
+      location.href = '/book/create_book_form'
+    }
+  </script>
+</head>
+
+<body>
+  <div id="header"></div>
+  <div id="page-wrapper">
+    <div id="sidebar-wrapper"></div>
+
+    <div id="page-content-wrapper">
+      <div class="container-fluid">
+        <h1>희망 도서 내역</h1>
+        <table class="table table-bordered table-hover">
+          <thead>
+            <th>번호</th>
+            <th>내용</th>
+            <th>아이디</th>
+          </thead>
+          <tbody>
             <% wishList.forEach(function(wish){ %>
-            <tr>
-              <td><%= wish.wish_no %></td>
-              <td><%= wish.wish_content %></td>
-              <td><%= wish.user_id %></td>
-            </tr>
-             <% }); %>
-            </tbody>
-          </table>
-        </div>
+              <tr>
+                <td>
+                  <%= wish.wish_no %>
+                </td>
+                <td>
+                  <%= wish.wish_content %>
+                </td>
+                <td>
+                  <%= wish.user_id %>
+                </td>
+              </tr>
+              <% }); %>
+          </tbody>
+        </table>
       </div>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>

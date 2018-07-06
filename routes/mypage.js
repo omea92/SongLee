@@ -47,10 +47,11 @@ module.exports = function(connection) {
 
   route.get('/wish_book_list', function(req, res) {
     var user_id = 'dpthf403';
-    var sql = 'SELECT * FROM wish_book WHERE user_id = ?';
+    var sql = ' SELECT wish_no, wish_content, left(wish_content, 10) as cut_content, user_id FROM wish_book WHERE user_id = ?';
     var params = [user_id];
     sql = mysql.format(sql, params);
     connection.query(sql, function(err, results, fields) {
+      console.log(results);
       res.render('mypage/wish_book_list', {
         layout: false,
         wish_results: results
@@ -122,7 +123,7 @@ module.exports = function(connection) {
 
   route.get('/user_delete', function(req, res) {
     var sql = 'UPDATE user SET type = "N", password = null, name = null, birthdate = null, email = null, gender = null WHERE user_id = ?';
-    var id = req.query.user_id;
+    var id = 'dpthf403';
     console.log(id);
     sql = mysql.format(sql, id);
     console.log(sql);
